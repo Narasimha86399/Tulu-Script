@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kannada to Tulu Transliteration</title>
+  <style>
+    @font-face {
+      font-family: 'TuluFont';
+      src: url('XmlAlieg(mallige)v1.4.ttf') format('truetype');
+    }
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    header {
+      text-align: center;
+      padding: 20px 10px 10px;
+      background-color: #80004d;
+      color: white;
+    }
+
+    .Tulu-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 12px;
+    }
+
+    nav a {
+      color: #80004d;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      text-align: justify;
+      font-size: 18px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    footer {
+      background-color: #80004d;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+   
+
+    textarea { width: 100%; height: 100px; margin-bottom: 10px; font-size: 18px; }
+    .output {
+      font-family: 'TuluFont';
+      font-size: 24px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      white-space: pre-wrap;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="kundapura.jpg" alt="Tulu-logo" class="Tulu-logo">
+    <h1>ತುಳು ಲಿಪಿ ಕಲ್ಪುಲೆ</h1>
+  </header>
+
+  <!-- Navigation Bar (moved just below header) -->
+  <nav>
+    <a href="index.html">Tulu Letters</a>
+    <a href="tulu-transliterate.html">Kannada Fonts To TuluFonts</a>
+    
+  </nav>
+  <h2>Kannada to Tulu Transliteration</h2>
+  <textarea id="inputText" placeholder="Type Kannada text..."></textarea>
+  <div><strong>Output:</strong></div>
+  <div class="output" id="outputText"></div>
+
+  <script>
+    const mapping = {
+      'ಅ': 'AA', 'ಆ': 'Aa', 'ಇ': 'Ai', 'ಈ': 'AI', 'ಉ': 'Au', 'ಊ': 'AU',
+      'ಋ': 'AR', 'ಌ': 'Vl', 'ೠ': 'ARR', 'ೡ': 'Vll',
+      'ಎ': 'eA', 'ಏ': 'EA', 'ಐ': 'EEA', 'ಒ': 'eAa', 'ಓ': 'EAa', 'ಔ': 'AY',
+      'ಕ': 'k', 'ಖ': 'K', 'ಗ': 'g', 'ಘ': 'G', 'ಙ': 'Z',
+      'ಚ': 'c', 'ಛ': 'C', 'ಜ': 'j', 'ಝ': 'J', 'ಞ': 'z',
+      'ಟ': 'q', 'ಠ': 'Q', 'ಡ': 'w', 'ಢ': 'W', 'ಣ': 'N',
+      'ತ': 't', 'ಥ': 'T', 'ದ': 'd', 'ಧ': 'D', 'ನ': 'n',
+      'ಪ': 'p', 'ಫ': 'P', 'ಬ': 'b', 'ಭ': 'B', 'ಮ': 'm',
+      'ಯ': 'y', 'ರ': 'r', 'ಲ': 'l', 'ಳ': 'L', 'ವ': 'v',
+      'ಶ': 'S', 'ಷ': 'x', 'ಸ': 's', 'ಹ': 'h',
+      'ೞ': 'Vr', '೛': 'VZ',
+      'ಾ': 'a', 'ಿ': 'i', 'ೀ': 'I', 'ು': 'u', 'ೂ': 'U',
+      'ೃ': 'R', 'ೄ': 'RR', 'ೆ': 'e', 'ೇ': 'E', 'ೈ': 'EE',
+      '೉': 'VlX', 'ೊ': 'ea', 'ೋ': 'Ea', 'ೌ': 'EY',
+      'ೌ': 'EY', 'ಂ': 'M', 'ಃ': 'H', '್': 'A'
+    };
+
+    const nasalMap = {
+      'k': 'Z', 'K': 'Z', 'g': 'Z', 'G': 'Z',
+      'c': 'z', 'C': 'z', 'j': 'z', 'J': 'z',
+      'q': 'N', 'Q': 'N', 'w': 'N', 'W': 'N',
+      't': 'n', 'T': 'n', 'd': 'n', 'D': 'n'
+    };
+
+    document.getElementById('inputText').addEventListener('input', () => {
+      const input = document.getElementById('inputText').value;
+      const output = transliterate(input);
+      document.getElementById('outputText').textContent = output;
+    });
+
+    function transliterate(text) {
+      text = text
+        .replace(/ಂ([ಕಖಗಘ])/g, 'ಙ್$1')
+        .replace(/ಂ([ಚಛಜಝ])/g, 'ಞ್$1')
+        .replace(/ಂ([ಟಠಡಢ])/g, 'ಣ್$1')
+        .replace(/ಂ([ತಥದಧ])/g, 'ನ್$1')
+       
+
+      let result = '';
+      const chars = [...text];
+
+      for (let i = 0; i < chars.length; i++) {
+        const cur = chars[i];
+        const next = chars[i + 1] || '';
+        const next2 = chars[i + 2] || '';
+
+        // Handle ಿ + halant + ZWJ (microspace halant)
+        if (next === '್' && next2 === '‌') {
+          result += (mapping[cur] || cur) + 'AX';
+          i += 2;
+          continue;
+        }
+
+        // Handle ending halant
+        if (next === '್' && (!next2 || /[^\u0C85-\u0CCF]/.test(next2))) {
+          result += (mapping[cur] || cur) + 'AX';
+          i++;
+          continue;
+        }
+
+        // ರ್ + consonant → consonantf
+        if (cur === 'ರ' && next === '್' && chars[i + 2]) {
+          result += (mapping[chars[i + 2]] || chars[i + 2]) + 'f';
+          i += 2;
+          continue;
+        }
+ if (
+  cur === 'ರ್' && text[i+1]?.match(/[ಕ-ಹಱ]/) && text[i+2] === 'ೆ'
+) {
+  result += 'e' + mapping[text[i+1]] + 'f';
+  i += 2;
+  continue;
+}
+        // ಎ + consonant
+      // Rule 3: ಎ + C → e + C
+if (cur === 'ಎ' && mapping[next]) {
+  result += 'eA' + mapping[next];
+  i++;
+  continue;
+}
+
+        // consonant + ೆ
+        if (next === 'ೆ') {
+          result += 'e' + (mapping[cur] || cur); 
+          i++;
+          continue;
+        }
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೊ'
+) {
+  result += 'e' + mapping[cur] + 'A' + mapping[text[i+2]] + 'a';
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೆ'
+) {
+  result += 'e' + mapping[cur] + 'A' + mapping[text[i+2]];
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೇ'
+) {
+  result += 'E' + mapping[cur] + 'A' + mapping[text[i+2]];
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೈ'
+) {
+  result += 'EE' + mapping[cur] + 'A' + mapping[text[i+2]];
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೋ'
+) {
+  result += 'E' + mapping[cur] + 'A' + mapping[text[i+2]] + 'a';
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೌ'
+) {
+  result += 'E' + mapping[cur] + 'A' + mapping[text[i+2]] + 'Y';
+  i += 3;
+  continue;
+}
+
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೆ'
+) {
+  result += 'e' + mapping[cur] + 'A' + mapping[text[i+2]];
+  i += 3;
+  continue;
+}
+
+        // consonant + ೌ
+        if (next === 'ೌ') {
+          result += 'E' + (mapping[cur] || cur) + 'Y';
+          i++;
+          continue;
+        }
+if (next === 'ೇ') {
+          result += 'E' + (mapping[cur] || cur);
+          i++;
+          continue;
+        }
+
+        // consonant + ೊ
+        if (next === 'ೊ') {
+          result += 'e' + (mapping[cur] || cur) + 'a';
+          i++;
+          continue;
+        }
+
+        // consonant + ೋ
+        if (next === 'ೋ') {
+          result += 'E' + (mapping[cur] || cur) + 'a';
+          i++;
+          continue;
+        }
+
+        if (next === 'ೢ') {
+          result += (mapping[cur] || cur) + 'VlX';
+          i++;
+          continue;
+        }
+
+        if (next === 'ೣ') {
+          result += (mapping[cur] || cur) + 'VllX';
+          i++;
+          continue;
+        }
+
+        result += mapping[cur] || cur;
+      }
+
+      return result;
+    }
+  </script>
+</body>
+</html>
