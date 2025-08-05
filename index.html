@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tulu Fonts</title>
+   <!-- Google Fonts: Noto Serif Kannada -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mallige';
+      src: url('XmlAlieg(mallige)v1.4.ttf') format('truetype');
+      
+    }
+
+    body
+    
+     {
+       font-family: 'Noto Serif Kannada', serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+ header {
+      text-align: center;
+      padding: 20px 10px 10px;
+      background-color: #80004d;
+      color: white;
+    }
+
+    .Tulu-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 12px;
+    }
+
+    nav a {
+      color: #80004d;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      text-align: justify;
+      font-size: 18px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    footer {
+      background-color: #80004d;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+   
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .glyph-box {
+  font-family: 'Mallige';
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+  width: 150px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: white;
+}
+
+.glyphChar {
+  font-size: 36px; /* reduce if overflowing */
+  line-height: 1;
+  text-align: center;
+  word-break: break-word;
+}
+
+.label {
+  font-family: 'Noto Serif Kannada', serif;
+  font-size: 22px;
+  color: #444;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.code {
+  font-family: monospace;
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <img src="kundapura.jpg" alt="Tulu-logo" class="Tulu-logo">
+    <h1>ತುಳು ಲಿಪಿ ಕಲ್ಪುಲೆ </h1>
+  </header>
+
+  <!-- Navigation Bar (moved just below header) -->
+  <nav>
+    <a href="index.html">Tulu Letters</a>
+    <a href="tulu-transliterate.html">Kannada Fonts To TuluFonts</a>
+    <a href="flashcard.html">Flashcards</a>
+    <a href="tuluwords.html">Tulu Words</a>
+  </nav>
+  <h2>Tulu Fonts with Kannada Letters and Mapping Keys</h2>
+  <div class="grid" id="glyphs"></div>
+
+  <script src="mapping.js"></script>
+  <script>
+    const grid = document.getElementById('glyphs');
+
+    for (const [kannada, glyph] of Object.entries(mapping)) {
+      const div = document.createElement('div');
+      div.className = 'glyph-box';
+
+      const glyphChar = document.createElement('div');
+      glyphChar.textContent = glyph;
+
+      const label = document.createElement('div');
+      label.className = 'label';
+      label.textContent = kannada;
+
+      const code = document.createElement('div');
+      code.className = 'code';
+      code.textContent = glyph;
+
+      div.appendChild(glyphChar);
+      div.appendChild(label);
+      div.appendChild(code);
+      grid.appendChild(div);
+    }
+  </script>
+  <p><h2><u>Sincere thanks to tcrf team for giving Tulu Fonts</u></h2></p>
+</body>
+</html>

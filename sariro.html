@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="UTF-8">
+  <title>Kannada to Tulu Flashcards</title>
+   <!-- Google Fonts: Noto Serif Kannada -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mallige';
+      src: url('XmlAlieg(mallige)v1.4.ttf') format('truetype');
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 30px;
+    }
+    .flashcard-image {
+      margin-bottom: 12px;
+      min-height: 100px;
+    }
+    .flashcard-image img {
+      max-width: 200px;
+      max-height: 200px;
+      width: auto;
+      height: auto;
+      display: inline-block;
+    }
+    
+    .tuluGlyph {
+      font-size: 36px;
+      font-family: 'Mallige', sans-serif;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      background-color: #80004d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #a00060;
+    }
+    header {
+      text-align: center;
+      padding: 20px 10px 10px;
+      background-color: #80004d;
+      color: white;
+    }
+    .Tulu-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+    nav {
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 12px;
+    }
+    nav a {
+      color: #80004d;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="kundapura.jpg" alt="Tulu-logo" class="Tulu-logo">
+    <h1>ತುಳು ಲಿಪಿ ಕಲ್ಪುಲೆ</h1>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html">Tulu Letters</a>
+    <a href="tulu-transliterate.html">Kannada Fonts To TuluFonts</a>
+    <a href="flashcard.html">Flashcards</a>
+    <a href="tuluwords.html">Tulu Words</a>
+  </nav>
+
+  <h1>ತುಳುವಿನಲ್ಲಿ ಶರೀರದ ಅಂಗಾಂಗಗಳು</h1>
+
+  <!-- Flashcard Display -->
+  <div class="flashcard-image" id="flashcardImage"></div>
+  
+  <div class="tuluGlyph" id="tuluGlyph"></div>
+  <button onclick="showNext()">Next</button>
+  <p><h1>Start the Quiz</h1></p>
+   <p><a href="body.html"><h1><b>ಸರೀರೊ</b></h1></a></p>
+
+  <script>
+    const mapping = {
+        '<img src="ಅಂಗಾಂಗೊಲು.jpg" alt="ಸರೀರೊದ ಅಂಗಾಂಗೊಲು" class="ಸರೀರೊದ ಅಂಗಾಂಗೊಲು"><h1>ಸರೀರೊದ ಅಂಗಾಂಗೊಲು</h1>': 'srIerad AAZAgaeZAgalu',
+      '<img src="ತರೆ.jpg" alt="ತರೆ" class="ತರೆ"><h1>ತರೆ</h1>': 'tor, sor, cor, AAor',
+      '<img src="ತರೆಕುಜಲ್.jpg" alt="ತರೆಕುಜಲ್" class="ತರೆಕುಜಲ್"><h1>ತರೆಕುಜಲ್</h1>': 'terkujlAX',
+      '<img src="ಪದೆವು.jpg" alt="ಪದೆವು" class="ಪದೆವು"><h1>ಪದೆವು</h1>': 'pedvu',
+      '<img src="ಮುಂಡೊ.jpg" alt="ಮುಂಡೊ" class="ಮುಂಡೊ"><h1>ಮುಂಡೊ</h1>': 'mueNAwa',
+      '<img src="ಕೆಬಿ.jpg" alt="ಕೆಬಿ" class="ಕೆಬಿ"><h1>ಕೆಬಿ</h1>': 'ekbi',
+      '<img src="ಕೆಬಿತಪೊ.jpg" alt="ಕೆಬಿತಪೊ" class="ಕೆಬಿತಪೊ"><h1>ಕೆಬಿತಪೊ</h1>': 'ekbitepa',
+      '<img src="ಕಣ್ಣ್.jpg" alt="ಕಣ್ಣ್" class="ಕಣ್ಣ್"><h1>ಕಣ್ಣ್</h1>': 'kNANAX',
+      '<img src="ಕಣ್ಣ್ ಎಮೆ.jpg" alt="ಕಣ್ಣ್ ಎಮೆ" class="ಕಣ್ಣ್ ಎಮೆ"><h1>ಕಣ್ಣ್ ಎಮೆ</h1>': 'kNANAX eAom',
+      '<img src="ಕಣ್ಣ್ ಬೊಂಬೆ.jpg" alt="ಕಣ್ಣ್ ಬೊಂಬೆ" class="ಕಣ್ಣ್ ಬೊಂಬೆ"><h1>ಕಣ್ಣ್ ಬೊಂಬೆ</h1>': 'kNANAX ebaMeb',
+      '<img src="ಬಿಮ್ಮೊ.jpg" alt="ಬಿಮ್ಮೊ" class="ಬಿಮ್ಮೊ"><h1>ಬಿಮ್ಮೊ</h1>': 'biemAma/ mUnAtAru',
+      '<img src="ದೊಂಡೆ.jpg" alt="ದೊಂಡೆ" class="ದೊಂಡೆ"><h1>ದೊಂಡೆ</h1>': 'edaeNAw',
+      '<img src="ಕಿಞ್ಞಿ ನಾಲಯಿ.jpg" alt="ಕಿಞ್ಞಿ ನಾಲಯಿ" class="ಕಿಞ್ಞಿ ನಾಲಯಿ"><h1>ಕಿಞ್ಞಿ ನಾಲಯಿ</h1>': 'kizAzi nalyi',
+      '<img src="ಕೂಲಿ.jpg" alt="ಕೂಲಿ" class="ಕೂಲಿ"><h1>ಕೂಲಿ</h1>': 'kUli',
+      '<img src="ಕಡೆಂಪರು.jpg" alt="ಕಡೆಂಪರು" class="ಕಡೆಂಪರು"><h1>ಕಡೆಂಪರು</h1>': 'kewMpru',
+      '<img src="ಕೆಕ್ಕಿಲ್.jpg" alt="ಕೆಕ್ಕಿಲ್" class="ಕೆಕ್ಕಿಲ್"><h1>ಕೆಕ್ಕಿಲ್</h1>': 'ekkAkilAX ,keNAqlAX',
+      '<img src="ಬೆರಿ.jpg" alt="ಬೆರಿ" class="ಬೆರಿ"><h1>ಬೆರಿ</h1>': 'ebri',
+      '<img src="ಪುಗೆಲ್.jpg" alt="ಪುಗೆಲ್" class="ಪುಗೆಲ್"><h1>ಪುಗೆಲ್</h1>': 'pueglAX/ kyApor/ bueja',
+      '<img src="ಮೊರಂಗಯ್.jpg" alt="ಮೊರಂಗಯ್" class="ಮೊರಂಗಯ್"><h1>ಮೊರಂಗಯ್</h1>': 'emarZAgyAX',
+      '<img src="ತಟ್ಟ್‌ಮುಂಗಯಿ.jpg" alt="ತಟ್ಟ್‌ಮುಂಗಯಿ" class="ತಟ್ಟ್‌ಮುಂಗಯಿ"><h1>ತಟ್ಟ್‌ಮುಂಗಯಿ</h1>': 'tqAqAXmuZAgyi',
+      '<img src="ತಟ್ಟೆಲ್.jpg" alt="ತಟ್ಟೆಲ್" class="ತಟ್ಟೆಲ್"><h1>ತಟ್ಟೆಲ್</h1>': 'teqAqlAX/ dZAgAX / EtaLAX',
+      '<img src="ಬಿರೆಲ್.jpg" alt="ಬಿರೆಲ್" class="ಬಿರೆಲ್"><h1>ಬಿರೆಲ್</h1>': 'bierlAX',
+      '<img src="ಕೊಂಬಿರೆಲ್.jpg" alt="ಕೊಂಬಿರೆಲ್" class="ಕೊಂಬಿರೆಲ್"><h1>ಕೊಂಬಿರೆಲ್</h1>': 'ekaMbierlAX',
+      '<img src="ಸುಟ್ಟಿ ಬಿರೆಲ್.jpg" alt="ಸುಟ್ಟಿ ಬಿರೆಲ್" class="ಸುಟ್ಟಿ ಬಿರೆಲ್"><h1>ಸುಟ್ಟಿ ಬಿರೆಲ್</h1>': 'suqAqi bierlAX',
+      '<img src=" ನಡು ಬಿರೆಲ್.jpg" alt=" ನಡು ಬಿರೆಲ್" class=" ನಡು ಬಿರೆಲ್"><h1> ನಡು ಬಿರೆಲ್</h1>': 'nwu bierlAX',
+      '<img src=" ಉಂಗಿಲ ಬಿರೆಲ್.jpg" alt=" ಉಂಗಿಲ ಬಿರೆಲ್" class=" ಉಂಗಿಲ ಬಿರೆಲ್"><h1> ಉಂಗಿಲ ಬಿರೆಲ್</h1>': 'AuZAgil bierlAX',
+      '<img src="ಕಿಞ್ಞಿ ಬಿರೆಲ್.jpg" alt="ಕಿಞ್ಞಿ ಬಿರೆಲ್" class="ಕಿಞ್ಞಿ ಬಿರೆಲ್"><h1>ಕಿಞ್ಞಿ ಬಿರೆಲ್</h1>': 'kizAzi bierlAX / kinAkAXn bierlAX',
+      '<img src="ತಿಗಳೆ.jpg" alt="ತಿಗಳೆ" class="ತಿಗಳೆ"><h1>ತಿಗಳೆ</h1>': 'tigoL',
+      '<img src="ಮಿರೆ.jpg" alt="ಮಿರೆ" class="ಮಿರೆ"><h1>ಮಿರೆ</h1>': 'mior',
+      '<img src="ಮಿರೆಕಟ್ಟ್.jpg" alt="ಮಿರೆಕಟ್ಟ್" class="ಮಿರೆಕಟ್ಟ್"><h1>ಮಿರೆಕಟ್ಟ್</h1>': 'miorkqAqAX',
+      '<img src="ಅಲ್ಲೆ.jpg" alt="ಅಲ್ಲೆ" class="ಅಲ್ಲೆ"><h1>ಅಲ್ಲೆ</h1>': 'AAelAl',
+      '<img src="ಬಾರಿ ಎಲು.jpg" alt="ಬಾರಿ ಎಲು" class="ಬಾರಿ ಎಲು"><h1>ಬಾರಿ ಎಲು</h1>': 'bari eAlu',
+      '<img src="ಎಲ್ಕೊಟೆ.jpg" alt="ಎಲ್ಕೊಟೆ" class="ಎಲ್ಕೊಟೆ"><h1>ಎಲ್ಕೊಟೆ</h1>': 'eAlAekaeq',
+      '<img src="ಬಂಜಿ.jpg" alt="ಬಂಜಿ" class="ಬಂಜಿ"><h1>ಬಂಜಿ</h1>': 'bzAji',
+      '<img src="ಪೂವೊಲು.jpg" alt="ಪೂವೊಲು" class="ಪೂವೊಲು"><h1>ಪೂವೊಲು</h1>': 'pUevalu',
+      '<img src="ಮಚ್ಚಂಡ್.jpg" alt="ಮಚ್ಚಂಡ್" class="ಮಚ್ಚಂಡ್"><h1>ಮಚ್ಚಂಡ್</h1>': 'mcAcNAwAX',
+      '<img src="ಪೊಟ್ಟೆ.jpg" alt="ಪೊಟ್ಟೆ" class="ಪೊಟ್ಟೆ"><h1>ಪೊಟ್ಟೆ</h1>': 'epaeqAq',
+      '<img src="ತುಡೆ.jpg" alt="ತುಡೆ" class="ತುಡೆ"><h1>ತುಡೆ</h1>': 'tuew',
+      '<img src="ಮೊರಂಪು.jpg" alt="ಮೊರಂಪು" class="ಮೊರಂಪು"><h1>ಮೊರಂಪು</h1>': 'emarMpu',
+      '<img src="ಕೋಲ್‌ಕಾರ್.jpg" alt="ಕೋಲ್‌ಕಾರ್" class="ಕೋಲ್‌ಕಾರ್"><h1>ಕೋಲ್‌ಕಾರ್</h1>': 'EkalAXkarAX',
+
+    };
+
+    const keys = Object.keys(mapping);
+    let currentIndex = 0;
+
+    // Comment this if you want fixed order
+
+    function showCurrentCard() {
+      const htmlContent = keys[currentIndex];
+      document.getElementById('flashcardImage').innerHTML = htmlContent;
+
+      const match = htmlContent.match(/<h1>(.*?)<\/h1>/);
+      
+      const tuluGlyphText = mapping[htmlContent];
+      document.getElementById('tuluGlyph').textContent = tuluGlyphText;
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % keys.length;
+      showCurrentCard();
+    }
+    window.onload = showCurrentCard;
+  </script>
+</body>
+</html>
