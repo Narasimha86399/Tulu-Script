@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Kannada to Tulu Flashcards</title>
-
-  <!-- Google Fonts: Noto Serif Kannada -->
+   <!-- Google Fonts: Noto Serif Kannada -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
-
- <style>
+  <style>
     @font-face {
       font-family: 'Mallige';
       src: url('XmlAlieg(mallige)v1.4.ttf') format('truetype');
@@ -110,6 +108,7 @@
     <h1>ತುಳು ಲಿಪಿ ಕಲ್ಪುಲೆ</h1>
   </header>
 
+  <!-- Navigation Bar -->
   <nav>
     <a href="index.html">Tulu Letters</a>
     <a href="tulu-transliterate.html">Kannada Fonts To TuluFonts</a>
@@ -117,34 +116,33 @@
     <a href="tuluwords.html">Tulu Words</a>
   </nav>
 
-  <h1>ತುಳುವಿನಲ್ಲಿ ಕುಟುಂಬ ಪದಗಳು</h1>
-
+  <h1>ತುಳುವಿನಲ್ಲಿ ಸಂಖ್ಯೆ</h1>
   <!-- Font Selection -->
   <label for="fontSelector"><strong>Choose Tulu Font:</strong> </label>
   <select id="fontSelector" onchange="changeFont(this.value)">
     <option value="malligeFont" selected>Mallige</option>
     <option value="mandaraFont">Mandara</option>
   </select>
-
   <!-- Flashcard Display -->
   <div class="flashcard-image" id="flashcardImage"></div>
-   <div class="kannadaWord" id="kannadaLetter"></div>
-  <div class="tuluGlyph malligeFont" id="tuluGlyph"></div>
-
+  <div class="kannadaWord" id="kannadaLetter"></div>
+  <div class="tuluGlyph" id="tuluGlyph"></div>
   <button onclick="showNext()">Next</button>
-
   <p><h1>Start the Quiz</h1></p>
-  <p><a href="family.html"><h1><b>ಕುಟುಮ</b></h1></a></p>
+   <p><a href="sankhye.html"><h1><b>ಅಂಕೊ</b></h1></a></p>
 
   <script>
     const mapping = {
-      '<img src="sambandiker.jpg" alt="sambandiker"><h1>ಸಂಬಂಧಿಕರು</h1>': 'smAmnAdiekrAX',
-      '<img src="mother.jpg" alt="mother"><h1>ಅಮ್ಮ</h1>': 'AAopAp',
-      '<img src="father.jpg" alt="father"><h1>ತಂದೆ</h1>': 'AAemAmrAX',
-      '<img src="son.jpg" alt="son"><h1>ಮಗ</h1>': 'meg',
-      '<img src="daughter.jpg" alt="daughter"><h1>ಮಗಳು</h1>': 'mgLAX',
-      '<img src="brothersister.jpg" alt="brothersister"><h1>ಅಣ್ಣ,ತಂಗಿ</h1>': 'pley/pel/teg/AAeNAN,emgAdi /tZAgwi',
-      '<img src="sisterbrother.jpg" alt="sisterbrother"><h1>ಅಕ್ಕ,ತಮ್ಮ</h1>': 'pli/plAdi /AAekAk,emegAy'
+        '<img src="one.jpg" alt="one" class="one"><h1 >ಒಂಜಿ</h1>': 'eAazAji',
+      '<img src="two.jpg" alt="two" class="two"><h1>ರಡ್ಡ್</h1>': 'rwAwA',
+      '<img src="three.jpg" alt="three" class="three"><h1>ಮೂಜಿ</h1>': 'mUji',
+      '<img src="four.jpg" alt="four" class="four"><h1>ನಾಲ್</h1>': 'nalA',
+      '<img src="five.jpg" alt="five" class="five"><h1>ఐನ್</h1>': 'EEAnAX',
+      '<img src="six.jpg" alt="six" class="six"><h1>ಆಜಿ</h1>': 'Aaji',
+      '<img src="seven.jpg" alt="seven" class="seven"><h1>ಏಳ್</h1>': 'EAlA',
+      '<img src="eight.jpg" alt="eight" class="eight"><h1>ಎಣ್ಮ</h1>': 'eANAm',
+      '<img src="nine.jpg" alt="nine" class="nine"><h1>ಒಂರ್ಬ </h1>': 'eAarAXMb',
+      '<img src="ten.jpg" alt="ten" class="ten"><h1>ಪತ್ತ್</h1>': 'ptAtAX',
     };
 
     const keys = Object.keys(mapping);

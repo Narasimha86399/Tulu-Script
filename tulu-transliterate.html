@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kannada to Tulu Transliteration</title>
+  <!-- Google Fonts: Noto Serif Kannada -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Mallige';
+      src: url('XmlAlieg(mallige)v1.4.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Mandara';
+      src: url('mandara.ttf') format('truetype');
+    }
+
+    body {
+      font-family: 'Noto Serif Kannada', serif;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 10px 10px;
+      background-color: #80004d;
+      color: white;
+    }
+
+    .Tulu-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 12px;
+    }
+
+    nav a {
+      color: #80004d;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    footer {
+      background-color: #80004d;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    .OutputText {
+      font-size: 24px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      white-space: pre-wrap;
+      background: #f9f9f9;
+    }
+
+    .font-selector {
+      margin: 10px 0;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+    }
+    .note-heading {
+      font-weight: bold;
+      color: red;
+      font-size: 28px;
+      margin-top: 40px;
+    }
+
+    .note-font {
+      margin-left: 20px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .mallige {
+      font-family: 'Mallige';
+    }
+
+    .mandara {
+      font-family: 'Mandara';
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="kundapura.jpg" alt="Tulu-logo" class="Tulu-logo">
+    <h1>ತುಳು ಲಿಪಿ ಕಲ್ಪುಲೆ</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Tulu Letters</a>
+    <a href="tulu-transliterate.html">Kannada Fonts To TuluFonts</a>
+    <a href="flashcard.html">Flashcards</a>
+    <a href="tuluwords.html">Tulu Words</a>
+  </nav>
+
+  <h2>Kannada to Tulu Transliteration</h2>
+
+  <textarea id="inputText" placeholder="Type Kannada text..."></textarea>
+
+  <div class="font-selector">
+    <label for="fontSelect"><strong>Choose Tulu Font:</strong> </label>
+    <select id="fontSelect" onchange="changeFont()">
+      <option value="Mallige">Mallige</option>
+      <option value="Mandara">Mandara</option>
+    </select>
+  </div>
+
+  <h2>ತುಳು ಲಿಪಿಟ್ಟ್ :</h2>
+  <textarea id="outputText" class="OutputText" readonly placeholder="tuLu lipiqAX bpufNAwu..."></textarea>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <button onclick="copyOutput()" style="padding: 10px 20px; font-size: 16px; background-color: #80004d; color: white; border: none; border-radius: 5px;">
+      ನಕಲು ಮಾಡು
+    </button>
+  </div>
+ <div class="note-heading">ಗಮನಿಸಿ:</div>
+
+  <span class="note-font mallige"> oA ಬರಬೇಕಂದ್ರೆ ಎ* ಎಂಬ  OA ಬರಬೇಕಂದ್ರೆ ಏ* ಎಂಬ ಟೈಪ್ ಮಾಡಿ</span>
+  <span class="note-font mandara">oA ಬರಬೇಕಂದ್ರೆ ಎ* ಎಂಬ  OA ಬರಬೇಕಂದ್ರೆ ಏ* ಎಂಬ ಟೈಪ್ ಮಾಡಿ</span>
+  <script>
+      const mapping = {
+      'ಅ': 'AA', 'ಆ': 'Aa', 'ಇ': 'Ai', 'ಈ': 'AI', 'ಉ': 'Au', 'ಊ': 'AU',
+      'ಋ': 'AR', 'ಌ': 'Vl', 'ೠ': 'ARR', 'ೡ': 'Vll',
+      'ಎ': 'eA', 'ಏ': 'EA','ಎ*': 'oA', 'ಏ*': 'OA', 'ಐ': 'EEA', 'ಒ': 'eAa', 'ಓ': 'EAa', 'ಔ': 'AY',
+      'ಕ': 'k', 'ಖ': 'K', 'ಗ': 'g', 'ಘ': 'G', 'ಙ': 'Z',
+      'ಚ': 'c', 'ಛ': 'C', 'ಜ': 'j', 'ಝ': 'J', 'ಞ': 'z',
+      'ಟ': 'q', 'ಠ': 'Q', 'ಡ': 'w', 'ಢ': 'W', 'ಣ': 'N',
+      'ತ': 't', 'ಥ': 'T', 'ದ': 'd', 'ಧ': 'D', 'ನ': 'n',
+      'ಪ': 'p', 'ಫ': 'P', 'ಬ': 'b', 'ಭ': 'B', 'ಮ': 'm',
+      'ಯ': 'y', 'ರ': 'r', 'ಲ': 'l', 'ಳ': 'L', 'ವ': 'v',
+      'ಶ': 'S', 'ಷ': 'x', 'ಸ': 's', 'ಹ': 'h',
+      'ೞ': 'Vr', '೛': 'VZ',
+      'ಾ': 'a', 'ಿ': 'i', 'ೀ': 'I', 'ು': 'u', 'ೂ': 'U',
+      'ೃ': 'R', 'ೄ': 'RR', 'ೆ': 'e', 'ೇ': 'E', 'ೆ*': 'o', 'ೇ*': 'O',  'ೈ': 'EE',
+      '೉': 'VlX', 'ೊ': 'ea', 'ೋ': 'Ea', 'ೌ': 'EY',
+      'ಂ': 'M', 'ಃ': 'H', '್': 'A'
+    };
+
+    document.getElementById('inputText').addEventListener('input', () => {
+      const input = document.getElementById('inputText').value;
+      const output = transliterate(input);
+      document.getElementById('outputText').value = output;
+    });
+
+    function changeFont() {
+      const font = document.getElementById('fontSelect').value;
+      document.getElementById('outputText').style.fontFamily = font;
+    }
+
+      function transliterate(text) {
+      text = text
+        .replace(/ಂ([ಕಖಗಘ])/g, 'ಙ್$1')
+        .replace(/ಂ([ಚಛಜಝ])/g, 'ಞ್$1')
+        .replace(/ಂ([ಟಠಡಢ])/g, 'ಣ್$1')
+        .replace(/ಂ([ತಥದಧ])/g, 'ನ್$1');
+
+
+     let result = '';
+      const chars = [...text];
+
+      for (let i = 0; i < chars.length; i++) {
+        const cur = chars[i];
+        const next = chars[i + 1] || '';
+        const next2 = chars[i + 2] || '';
+        const next3 = chars[i + 3] || '';
+        const next4 = chars[i + 4] || '';
+
+        // Special cluster: ಡ್ಡೆ* / ಡ್ಡೇ*
+        if (cur === 'ಡ' && next === '್' && next2 === 'ಡ' && next3 === 'ೆ' && next4 === '*') {
+          result += 'owAw';
+          i += 4;
+          continue;
+        }
+        if (cur === 'ಡ' && next === '್' && next2 === 'ಡ' && next3 === 'ೇ' && next4 === '*') {
+          result += 'OwAw';
+          i += 4;
+          continue;
+        }
+
+        // consonant + ಎ*
+        if (cur.match(/[ಕ-ಹಱ]/) && next === 'ೆ' && next2 === '*') {
+          result += 'o' + mapping[cur];
+          i += 2;
+          continue;
+        }
+
+        // consonant + ಏ*
+        if (cur.match(/[ಕ-ಹಱ]/) && next === 'ೇ' && next2 === '*') {
+          result += 'O' + mapping[cur];
+          i += 2;
+          continue;
+        }
+
+        // Handle halant + ZWJ
+        if (next === '್' && next2 === '‌') {
+          result += (mapping[cur] || cur) + 'AX';
+          i += 2;
+          continue;
+        }
+
+        // Handle ending halant
+        if (next === '್' && (!next2 || /[^\u0C85-\u0CCF]/.test(next2))) {
+          result += (mapping[cur] || cur) + 'AX';
+          i++;
+          continue;
+        }
+
+        // ರ್ + consonant → consonantf
+        if (cur === 'ರ' && next === '್' && chars[i + 2]) {
+          result += (mapping[chars[i + 2]] || chars[i + 2]) + 'f';
+          i += 2;
+          continue;
+        }
+
+        // pseudo matra detection
+        if (cur === 'ಎ' && next === '*') { result += mapping['ಎ*']; i++; continue; }
+        if (cur === 'ಏ' && next === '*') { result += mapping['ಏ*']; i++; continue; }
+        if (cur === 'ೆ' && next === '*') { result += mapping['ೆ*']; i++; continue; }
+        if (cur === 'ೇ' && next === '*') { result += mapping['ೇ*']; i++; continue; }
+        // General rule: consonant + ್ + consonant + ಎ*
+if (
+  cur.match(/[ಕ-ಹಱ]/) &&
+  next === '್' &&
+  next2.match(/[ಕ-ಹಱ]/) &&
+  next3 === 'ೆ' &&
+  next4 === '*'
+) {
+  result += 'o' + mapping[cur] + 'A' + mapping[next2];
+  i += 4;
+  continue;
+}
+// General rule: consonant + ್ + consonant + ಎ*
+if (
+  cur.match(/[ಕ-ಹಱ]/) &&
+  next === '್' &&
+  next2.match(/[ಕ-ಹಱ]/) &&
+  next3 === 'ೇ' &&
+  next4 === '*'
+) {
+  result += 'O' + mapping[cur] + 'A' + mapping[next2];
+  i += 4;
+  continue;
+}
+
+   // ಎ + consonant
+      // Rule 3: ಎ + C → e + C
+if (cur === 'ಎ' && mapping[next]) {
+  result += 'eA' + mapping[next];
+  i++;
+  continue;
+}
+
+        // consonant + ೆ
+        if (next === 'ೆ') {
+          result += 'e' + (mapping[cur] || cur); 
+          i++;
+          continue;
+        }
+                
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೊ'
+) {
+  result += 'e' + mapping[cur] + 'A' + mapping[text[i+2]] + 'a';
+  i += 3;
+  continue;
+}
+
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೇ'
+) {
+  result += 'E' + mapping[cur] + 'A' + mapping[text[i+2]];
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೈ'
+) {
+  result += 'EE' + mapping[cur] + 'A' + mapping[text[i+2]];
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೋ'
+) {
+  result += 'E' + mapping[cur] + 'A' + mapping[text[i+2]] + 'a';
+  i += 3;
+  continue;
+}
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೌ'
+) {
+  result += 'E' + mapping[cur] + 'A' + mapping[text[i+2]] + 'Y';
+  i += 3;
+  continue;
+}
+
+if (
+  cur.match(/[ಕ-ಹಱ]/) && next === '್' &&
+  text[i+2]?.match(/[ಕ-ಹಱ]/) && text[i+3] === 'ೆ'
+) {
+  result += 'e' + mapping[cur] + 'A' + mapping[text[i+2]];
+  i += 3;
+  continue;
+}
+
+
+        // consonant + ೌ
+        if (next === 'ೌ') {
+          result += 'E' + (mapping[cur] || cur) + 'Y';
+          i++;
+          continue;
+        }
+if (next === 'ೇ') {
+          result += 'E' + (mapping[cur] || cur);
+          i++;
+          continue;
+        }
+  if (next === 'ೈ') {
+          result += 'EE' + (mapping[cur] || cur);
+          i++;
+          continue;
+        }
+        // consonant + ೊ
+        if (next === 'ೊ') {
+          result += 'e' + (mapping[cur] || cur) + 'a';
+          i++;
+          continue;
+        }
+
+        // consonant + ೋ
+        if (next === 'ೋ') {
+          result += 'E' + (mapping[cur] || cur) + 'a';
+          i++;
+          continue;
+        }
+
+        if (next === 'ೢ') {
+          result += (mapping[cur] || cur) + 'VlX';
+          i++;
+          continue;
+        }
+
+        if (next === 'ೣ') {
+          result += (mapping[cur] || cur) + 'VllX';
+          i++;
+          continue;
+        }
+        
+
+        // basic mapping
+        result += mapping[cur] || cur;
+      }
+
+      return result;
+    }
+
+    function copyOutput() {
+      const outputBox = document.getElementById("outputText");
+      outputBox.select();
+      outputBox.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(outputBox.value).then(() => {
+        alert("ಲಿಪಿ ನಕಲು ಮಾಡಲಾಗಿದೆ!");
+      });
+    }
+  </script>
+</body>
+</html>
